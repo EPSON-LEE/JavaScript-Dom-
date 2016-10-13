@@ -33,19 +33,34 @@ img{
   display: block;
   clear: both;
 }
+#imagegallery{
+  list-style: none;
+}
+#imagegallery li{
+  display: inine;
+}
+#imagegallery li a img{
+  border: 0;
+  width: 40px;
+  height: 30px;
+}
+#placeholder{
+  width: 400px;
+  height: 300px;
+}
 </style>
 <body>
     <h1>Solar System</h1>
     <ul id="imagegallery">
-      <li><a title="This is Sun"href="static/Sun太阳.jpg">Sun</a></li><!-- the Sun -->
-      <li><a title="This is Mecurcy"href="static/Mecurcy水星.jpg"   >Mecurcy</a></li><!-- the Mecurcy-->
-      <li><a title="This is Venus"href="static/Venus金星.jpg"       >Venus</a></li><!-- the Venus-->
-      <li><a title="This is Earth"href="static/Earth地球.jpg"       >Earth</a></li><!-- the Earth-->
-      <li><a title="This is Mars"href="static/Mars火星.jpg"         >Mars</a></li><!-- the Mars-->
-      <li><a title="This is Saturn"href="static/Saturn土星.jpg"     >Saturn</a></li><!-- the Saturn-->
-      <li><a title="This is Uranus"href="static/Uranus天王.jpg"     >Uranus</a></li><!-- the Uranus-->
-      <li><a title="This is Neptune"href="static/Neptune海王星.jpg" >Neptune</a></li><!-- the Neptune-->
-      <li><a title="This is Pluto"href="static/Pluto冥王星.jpg"     >Pluto</a></li><!-- the Pluto-->
+      <li><a title="This is Sun"     href="static/Sun太阳.jpg"       ><img src="static/Sun太阳.jpg      ">Sun</a></li><!-- the Sun -->
+      <li><a title="This is Mecurcy" href="static/Mecurcy水星.jpg"   ><img src="static/Mecurcy水星.jpg  ">Mecurcy</a></li><!-- the Mecurcy-->
+      <li><a title="This is Venus"   href="static/Venus金星.jpg"     ><img src="static/Venus金星.jpg    ">Venus</a></li><!-- the Venus-->
+      <li><a title="This is Earth"   href="static/Earth地球.jpg"     ><img src="static/Earth地球.jpg    ">Earth</a></li><!-- the Earth-->
+      <li><a title="This is Mars"    href="static/Mars火星.jpg"      ><img src="static/Mars火星.jpg     ">Mars</a></li><!-- the Mars-->
+      <li><a title="This is Saturn"  href="static/Saturn土星.jpg"    ><img src="static/Saturn土星.jpg   ">Saturn</a></li><!-- the Saturn-->
+      <li><a title="This is Uranus"  href="static/Uranus天王.jpg"    ><img src="static/Uranus天王.jpg   ">Uranus</a></li><!-- the Uranus-->
+      <li><a title="This is Neptune" href="static/Neptune海王星.jpg" ><img src="static/Neptune海王星.jpg">Neptune</a></li><!-- the Neptune-->
+      <li><a title="This is Pluto"   href="static/Pluto冥王星.jpg"   ><img src="static/Pluto冥王星.jpg  ">Pluto</a></li><!-- the Pluto-->
     </ul>
     <img id="placeholder" src="./static/0.jpg">
     <p id="description">This is sun system.</p>
