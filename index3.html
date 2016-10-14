@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>动态加入脚本</title>
+</head>
+<style type="text/css">
+body{
+  font-family: "Arial";
+  color:#333;
+  background-color: #ccc;
+  margin: 16px 10%;
+}
+h1{
+  color:#333;
+  background-color: transparent;
+}
+a{
+  color: #c60;
+  background-color: transparent;
+  font-weight: bold;
+  text-decoration: none;
+}
+ul{
+  padding:0;
+}
+li{
+  float: left;
+  padding:1em;
+  list-style: none;
+}
+img{
+  display: block;
+  clear: both;
+}
+#imagegallery{
+  list-style: none;
+}
+#imagegallery li{
+  display: inine;
+}
+#imagegallery li a img{
+  border: 10px;
+  width: 40px;
+  height: 30px;
+}
+/* 固定占位符大小 */
+#placeholder{
+  width: 400px;
+  height: 300px;
+}
+</style>
+<!-- beta -->
+<body>
+    <h1>Solar System</h1>
+    <ul id="imagegallery">
+      <li><a title="This is Sun"href="static/Sun太阳.jpg">Sun</a></li><!-- the Sun -->
+      <li><a title="This is Mecurcy"href="static/Mecurcy水星.jpg"   onclick="showPic(this); return false;">Mecurcy</a></li><!-- the Mecurcy-->
+      <li><a title="This is Venus"href="static/Venus金星.jpg"       onclick="showPic(this); return false;">Venus</a></li><!-- the Venus-->
+      <li><a title="This is Earth"href="static/Earth地球.jpg"       onclick="showPic(this); return false;">Earth</a></li><!-- the Earth-->
+      <li><a title="This is Mars"href="static/Mars火星.jpg"         onclick="showPic(this);return false;">Mars</a></li><!-- the Mars-->
+      <li><a title="This is Saturn"href="static/Saturn土星.jpg"     onclick="showPic(this); return false;">Saturn</a></li><!-- the Saturn-->
+      <li><a title="This is Uranus"href="static/Uranus天王.jpg"     onclick="showPic(this); return false;">Uranus</a></li><!-- the Uranus-->
+      <li><a title="This is Neptune"href="static/Neptune海王星.jpg" onclick="showPic(this); return false;">Neptune</a></li><!-- the Neptune-->
+      <li><a title="This is Pluto"href="static/Pluto冥王星.jpg"     onclick="showPic(this); return false;">Pluto</a></li><!-- the Pluto-->
+    </ul>
+    <!--  平稳退化 -->
+    <a href="http://www.4399.com" onclick="popUp(this.href);return false;">平稳退化，防止禁用persudo-protocol</a><br>
+    <a href="http://www.4399.com">一般性做法</a>
+  <script>
+  /*通用性函数*/
+  /*自定义insertAfter函数*/
+  function insertAfter(newElement,targetElement){
+    var parent = targetElement.parentNode;
+    if(targetElement == parent.lastChild){
+      parent.appendChild(newElement);
+    }else{
+      parent.insertBefore(newElement,targetElement.nextSibling);
+    }
+  }
+  /*加载函数*/
+  function addLoadEvent(func){
+    var oldEvent = window.onload;
+    if(typeof(oldEvent) != 'function'){
+      window.onload = func();
+    }else{
+      window.onload = function(){
+        oldEvent();
+        func();
+      }
+    }
+  }
+  /*功能性函数*/
+  /*动态添加元素节点*/
+  function dynaicAppend(){
+    /*浏览器支持检测*/
+    if(!document.createElement) return false;
+    if(!document.createTextNode) return false;
+    if(!document.getElementById) return false;
+    if(!document.getElementById('imagegallery')) return false;
+    var img = document.createElement('img');
+    img.setAttribute('id','placeholder');
+    img.setAttribute('src','./static/0.jpg');
+    img.setAttribute('alt','占位符');
+    var ul = document.getElementById('imagegallery');
+    insertAfter(img,ul);
+    /*添加desciption*/
+    var description = document.createElement('p');
+    description.setAttribute('id','description');
+    var text = document.createTextNode("This is solar system");
+    description.appendChild(text);
+    insertAfter(description,img);
+  }
+  /*切换占位符中的内容*/
+    function showPic(whichpic){
+      var source = whichpic.getAttribute('href');
+      if(!document.getElementById('placeholder')) return true;
+      var placeholder = document.getElementById('placeholder');
+      if(placeholder.nodeName != 'IMG') return false;
+      placeholder.setAttribute('src',source);
+
+      if(document.getElementById("description")){
+        var text = whichpic.getAttribute('title') ? whichpic.getAttribute('title') : "";
+        var description = document.getElementById('description');
+        if(description.firstChild.nodeType == 3){
+          description.firstChild.nodeValue = text;
+        }
+      }
+      return true;
+    }
+  /*取消js内部绑定，在js文件中进行绑定*/
+    function prepareGallery(){
+      if(!document.getElementsByTagName) return false;
+      if(!document.getElementById) return false;
+      if(!document.getElementById('imagegallery')) return false;
+      var gallery = document.getElementById('imagegallery');
+      var links = gallery.getElementsByTagName("a");
+      for(var i = 0; i<links.length; i++){
+        links[i].onclick = function(){
+          return showPic(this) ? false : true;
+        }
+      }
+    }
+    /*弹窗*/
+    function popUp(winURL){
+      window.open(winURL,"popUp","width=1000,height=480");
+    }
+    /*执行加载函数*/
+    addLoadEvent(dynaicAppend);
+    addLoadEvent(prepareGallery);
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>根据某种条件反复设置某种样式</title>
+  <style>
+    body{
+      font-family: "Arial";
+      background-color: #fff;
+      color: #000;
+    }
+    table{
+      margin: auto;
+      border: 1px solid #699;
+    }
+    caption{
+      margin: auto;
+      padding: .2em;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    th{
+      font-weight: normal;
+      font-style: italic;
+      text-align: left;
+      border: 1px dotted #699;
+      background-color: #9cc;
+      color: #000;
+    }
+    th,td{
+      width: 10em;
+      padding: .5em;
+    }
+    /* 被JavaScript脚本能代替 */
+/*     tr:nth-child(odd) {background-color: #ffc;}
+    tr:nth-child(even){background-color: #fff;} */
+  </style>
+</head>
+<body>
+  <table>
+    <caption>Itinerary</caption>
+    <thead>
+      <tr>
+        <th>When</th>
+        <th>Where</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>June 9th</td>
+        <td>Portland,<abbr title="Oregon">OR</abbr></td>
+      </tr>
+      <tr>
+        <td>June 10th</td>
+        <td>Seattle,<<abbr title="Washington">WA</abbr>></td>
+      </tr>
+      <tr>
+        <td>June 12th</td>
+        <td>Sacramento,<<abbr title="California">CA</abbr>></td>
+      </tr>
+    </tbody>
+  </table>
+  <script type="text/javascript">
+  /*通用性函数*/
+    function stripeTables() {
+      if(!document.getElementsByTagName) return false;
+      var tables = document.getElementsByTagName('table');
+      var odd,rows;
+      for(var i = 0; i < tables.length; i++){
+        odd = false;
+        rows = tables[i].getElementsByTagName('tr');
+        for(var j = 0; j<rows.length; j++){
+          if(odd == true){
+            rows[j].style.backgroundColor = '#ffc';
+            odd = false;
+          }else{
+            odd = true;
+          }
+        }
+      }
+    }
+    /*功能性函数*/
+    function addLoadEvent(func){
+      var oldEvent = window.onload;
+      if(typeof(oldEvent) != 'function' ){
+          window.onload = func();   
+      }else{
+        window.onload = function(){
+          func();
+          oldEvent();
+        }
+      }
+    }
+    addLoadEvent(stripeTables);
+  </script>
+</body>
+</html>
