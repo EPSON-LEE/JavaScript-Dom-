@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>改进动画效果</title>
-  <!-- 加快移动速度 -->
+  <title>添加安全检查</title>
+  <!-- 安全检测 -->
   <style>
     #slideshadow{
       width: 100px;
@@ -28,7 +28,6 @@
   /*
     把指针在标签a之间来回移动 会出现抖动的情况
     是由变量作用域的问题导致的
-    
     在把moveMessage函数抽象化为moveElement函数的过程中，我们没有对变量movement做任何修改
   */
     function addLoadEvent(func){
@@ -49,6 +48,10 @@
       /*对其进行改进*/
       if(elem.movement){
         clearTimeout(elem.movement);
+      }
+      /*进行安全检测*/
+      if(!elem.style.left || !elem.style.top){
+        return false;
       }
       var xpos = parseInt(elem.style.left);
       var ypos = parseInt(elem.style.top);

@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>改进动画效果</title>
-  <!-- 加快移动速度 -->
+  <title>动态生成HTML标签</title>
+  <!-- 安全检测 -->
   <style>
     #slideshadow{
       width: 100px;
@@ -21,9 +21,6 @@
     <li><a>Presentation</a></li>
     <li><a>Behavior</a></li>
   </ol>
-  <div id = "slideshadow">
-    <img  id = "preview" src="static/charac.jpg" alt="building  blocks of web design"/>
-  </div>
   <script type="text/javascript">
   /*
     把指针在标签a之间来回移动 会出现抖动的情况
@@ -42,6 +39,14 @@
         }
       }
     }
+    function insertAfter(newElement,targetElement){
+      var parent = targetElement.parentNode;
+      if(targetElement == parent.lastChild){
+        parent.appendChild(newElement);
+      }else{
+        parent.insertBefore(newElement,targetElement.nextSibling);
+      }
+     }
     function moveElement(elementID,final_x,final_y,interval){
       if(!document.getElementById) return false;
       if(!document.getElementById(elementID)) return false;
@@ -49,6 +54,10 @@
       /*对其进行改进*/
       if(elem.movement){
         clearTimeout(elem.movement);
+      }
+      /*进行安全检测*/
+      if(!elem.style.left || !elem.style.top){
+        return false;
       }
       var xpos = parseInt(elem.style.left);
       var ypos = parseInt(elem.style.top);
@@ -83,14 +92,17 @@
       if(!document.getElementById) return false;
       /*确保元素存在*/
       if(!document.getElementById("linklist")) return false;
-      if(!document.getElementById("preview")) return false;
-      /*为图片应用样式*/
-      var preview = document.getElementById("preview");
-      preview.style.position = "absolute";
-      preview.style.left = "0px";
-      preview.style.top = "0px";
-      /*取得列表中所有的链接*/
+      /*动态创建HTML标签*/
+      var slideshow = document.createElement("div");
+      slideshow.setAttribute("id", 'slideshow');
+      var preview = document.createElement("img");
+      preview.setAttribute("src","static/charac.jpg");
+      preview.setAttribute("alt","building");
+      preview.setAttribute("id","preview");
+      slideshow.appendChild(preview);
       var list = document.getElementById("linklist");
+      insertAfter(slideshow,list);
+      /*取得列表中所有的链接*/
       var links = list.getElementsByTagName("a");
       /*为mouseover添加事件效果*/
       links[0].onmouseover = function(){

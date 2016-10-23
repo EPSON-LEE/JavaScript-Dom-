@@ -2,8 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>改进动画效果</title>
-  <!-- 加快移动速度 -->
+  <title>实用的动画</title>
   <style>
     #slideshadow{
       width: 100px;
@@ -46,36 +45,27 @@
       if(!document.getElementById) return false;
       if(!document.getElementById(elementID)) return false;
       var elem = document.getElementById(elementID);
-      /*对其进行改进*/
-      if(elem.movement){
-        clearTimeout(elem.movement);
-      }
       var xpos = parseInt(elem.style.left);
       var ypos = parseInt(elem.style.top);
-      var dist = 0;
       if(xpos == final_x && ypos == final_y){
         return true;
       }
       if(xpos < final_x){
-        dist = Math.ceil((final_x - xpos)/10);
-        xpos += dist;
+        xpos++;
       }
       if(xpos > final_x){
-        dist = Math.ceil((xpos - final_x)/10);
-        xpos -= dist;
+        xpos--;
       }
       if(ypos < final_x){
-        dist = Math.ceil((final_y - ypos)/10);
-        ypos += dist;
+        ypos++;
       }
       if(ypos > final_y){
-        dist = Math.ceil((ypos - final_y)/10);
-        ypos -= dist;
+        ypos--;
       }
       elem.style.left = xpos + 'px';
       elem.style.top = ypos + 'px';
       var repeat = "moveElement('" + elementID + "', " + final_x + ", " + final_y + ", " + interval + ")";
-      elem.movement = setTimeout(repeat,interval);
+      movement = setTimeout(repeat,interval);
     }
     function prepareSlideshow(){
       /*确保浏览器支持DOM方法*/

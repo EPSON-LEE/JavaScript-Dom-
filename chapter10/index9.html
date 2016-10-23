@@ -2,8 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>改进动画效果</title>
-  <!-- 加快移动速度 -->
+  <title>添加安全检查</title>
+  <!-- 安全检测 -->
   <style>
     #slideshadow{
       width: 100px;
@@ -49,6 +49,10 @@
       /*对其进行改进*/
       if(elem.movement){
         clearTimeout(elem.movement);
+      }
+      /*进行安全检测*/
+      if(!elem.style.left || !elem.style.top){
+        return false;
       }
       var xpos = parseInt(elem.style.left);
       var ypos = parseInt(elem.style.top);
